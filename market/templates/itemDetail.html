@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+<br />
+<h2 style="text-align:center">Products Details</h2>
+
+
+<hr style="border: 0; border-top: 2px solid grey;" />
+<div class="container">
+    <!-- All these forms are represented in a navbar as icons-->
+    <nav class="navbar navbar-light  bg-dark" style="margin-bottom: 20px">
+
+
+        <!--------------------  Form for handling of dropdown menu------------------->
+        <form action="{{ url_for('itemDetail_page')}}" method="POST">
+
+            <div class="dropdown mr-auto">
+                <button class=" btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Choose Category
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+
+                    {% for cat in categoryList%}
+                    <button class="dropdown-item" name="dd" value={{cat.categoryName}}
+                        type="submit">{{cat.categoryName}}</button>
+
+
+                    {% endfor %}
+                    <button class="dropdown-item" name="dd" value="ALL" type="submit">ALL</button>
+                </div>
+
+            </div>
+
+        </form>
+        <!------------------------------------------------------------------------------------------->
+
+
+
+        <!------------------------------- Form for handling search tab , to search items etc ------------------------>
+        <form class="form-inline" action="{{ url_for('itemDetail_page')}}" method="POST">
+
+
+            <input class="form-control mr-sm-2" name="searchContent" type="search" placeholder="Search"
+                aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+
+
+        </form>
+        <!------------------------------------------------------------------------------------------->
+
+    </nav>
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+
+                <th scope="col">Price</th>
+                <th scope="col">GrossPrice</th>
+                <th scope="col">SellerID</th>
+                <th scope="col">Seller Email</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Times Rated</th>
+                <th scope="col">Category</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <!-- ---------- -->
+
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.price}}$</td>
+                <td>{{item.gprice}}$</td>
+
+                <td>{{item.SellerID}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.rating}}</td>
+                <td>{{item['countofRating']}}</td>
+                <td>{{item['catName']}}</td>
+
+                {% endfor %}
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

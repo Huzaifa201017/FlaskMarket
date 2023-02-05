@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+<!-- ---------- -->
+{% block content%}
+
+<head>
+  <style>
+    #moreinfo {
+      position: relative;
+      left: 60px;
+      bottom: 38px;
+    }
+
+    body {
+
+
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+
+<div class="row" style="margin-top: 20px; margin-left: 20px">
+  <div class="col-8">
+    <h2>Avaiable Items on the Market</h2>
+    <p>Click on one of the items to start buying</p>
+
+    <!-- All these forms are represented in a navbar as icons-->
+    <nav class="navbar navbar-light  bg-dark" style="margin-bottom: 20px">
+
+
+      <!--------------------  Form for handling of dropdown menu------------------->
+      <form action="{{ url_for('market_page')}}" method="POST">
+
+        <div class="dropdown mr-auto">
+          <button class=" btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Choose Category
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+
+            {% for cat in categoryList%}
+            <button class="dropdown-item" name="dd" value={{cat.categoryName}}
+              type="submit">{{cat.categoryName}}</button>
+
+
+            {% endfor %}
+            <button class="dropdown-item" name="dd" value="ALL" type="submit">ALL</button>
+          </div>
+
+        </div>
+
+      </form>
+      <!------------------------------------------------------------------------------------------->
+
+
+
+      <!------------------------------- Form for handling search tab , to search items etc ------------------------>
+      <form class="form-inline" action="{{ url_for('market_page')}}" method="POST">
+
+
+        <input class="form-control mr-sm-2" name="searchContent" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+
+
+      </form>
+      <!------------------------------------------------------------------------------------------->
+
+    </nav>
+
+    <table class="table table-hover table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Barcode</th>
+          <th scope="col">Price</th>
+          <th scope="col">Seller</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+
+
+
+      <tbody>
+        {% for item in items %}
+        <!-- ---------- -->
+        {% include 'includes/item_modal.html' %}
+
+        <tr>
+
+          <td>{{item.name}}</td>
+          <td>{{item.barcode}}</td>
+          <td>{{item.price}}$</td>
+          <td>{{item.sellername}}</td>
+          <td>
+
+
+
+
+            <form method="POST" display: inline-block>
+              <input id="purchased_item" name="purchased_item" type="hidden" value="{{ item.barcode }}">
+              {{ form.submit(class="btn btn-outline btn-success" ) }}
+            </form>
+
+
+
+            <button id="moreinfo" class="btn btn-outline btn-info" data-toggle="modal"
+              data-target="#modal-info-{{item.barcode}}">
+              More Info
+            </button>
+
+
+            <!-- {{ form.submit(class="btn btn-outline btn-success") }} -->
+          </td>
+        </tr>
+        {% endfor %}
+
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-4">
+    <h2>Owned Items</h2>
+    <p>You can also put back the item !</p>
+
+    <h3>Total : {{ totalOrderPrice}}$</h3>
+    <table class="table table-hover table-info container" style="width: 24rem;">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+
+
+
+      <tbody>
+        {% for item in selectedItems %}
+
+        {% include 'includes/item_modal.html' %}
+
+        <tr>
+
+          <td>{{item.productName}}</td>
+
+          <td>{{item.price}}$</td>
+
+          <td>
+
+            <form method="POST" action="{{ url_for('market_page')}}" display: inline-block>
+              <input id="toRemove_item" name="toRemove_item" type="hidden" value="{{ item.barcodeNum }}">
+              <button id="PutBack" type="submit" class="btn btn-outline btn-info">
+                Put Back
+              </button>
+
+            </form>
+            <!-- <form method="POST" display: inline-block class="sm-3">
+                  <div class="form-check">
+                    <input class="form-check-input" onclick=type="checkbox" value="" id="flexCheckDefault">
+    
+                  </div>
+                </form> -->
+
+
+
+          </td>
+        </tr>
+        {% endfor %}
+
+
+      </tbody>
+    </table>
+    <br />
+    <form method="POST">
+
+
+      <input id="confirmOrder" name="confirmOrder" type="hidden" value="Confirmd">
+      <button id="PutBaconfirmOrderck" type="submit" class="btn btn-outline btn-success">
+        Confirm Order
+      </button>
+
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

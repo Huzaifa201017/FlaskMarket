@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<br />
+<div class="container">
+    <h2 style="text-align:center">Tracker</h2>
+
+
+    <hr style="border: 0; border-top: 2px solid grey;" />
+    <div class="card-columns">
+
+        <div class="card bg-primary " style="width: 19rem ;height: 15rem">
+
+            <div class="card-body">
+                <h2 class="card-title">Orders</h2>
+
+                <h4 class="card-text">Total Orders:&nbsp;&nbsp;{{orderdetails[0]}} </h4>
+
+
+                <h4 class="card-text"> Confirmed:&nbsp;&nbsp;{{orderdetails[3]}}</h4>
+
+                <h4 class="card-text"> Delivered: &nbsp;&nbsp;{{orderdetails[1]}}</h4>
+                <h4 class="card-text"> Departed : &nbsp;&nbsp;{{orderdetails[2]}}</h4>
+
+
+
+
+            </div>
+        </div>
+
+
+        <div class="card bg-warning" style="width: 19rem ;height: 15rem">
+
+            <div class="card-body">
+
+                <h2 class="card-title">Riders</h2>
+
+                <h4 class="card-text">Busy: &nbsp;&nbsp;{{riderDetails[0]}}</h4>
+
+
+                <h4 class="card-text"> Free: &nbsp;&nbsp;{{riderDetails[1]}}</h4>
+
+            </div>
+            <div class="card-footer">
+                <a href="{{url_for('riderDetail_page')}}" class="btn btn-primary">View Details</a>
+
+            </div>
+        </div>
+
+
+        <div class="card bg-success" style="width: 20rem ;height: 15rem">
+            <div class="card-body">
+
+                <h2 class="card-title">Sellers</h2>
+
+                <h4 class="card-text">Total:&nbsp;&nbsp;{{sellerDetail['totSellers']}}</h4>
+
+            </div>
+            <br />
+            <div class="card-footer">
+                <a href="{{url_for('sellerDetail_page')}}" class="btn btn-primary">View Details</a>
+
+            </div>
+        </div>
+
+
+        <div class="card bg-danger" style="width: 20rem ;height: 15rem">
+            <div class="card-body">
+
+                <h2 class="card-title">Customers</h2>
+
+                <h4 class="card-text">Total:&nbsp;&nbsp;{{customerDetail['totalCus']}}</h4>
+
+            </div>
+            <br />
+            <div class="card-footer">
+
+                <a href="{{url_for('customerDetail_page')}}" class="btn btn-primary">View Details</a>
+
+            </div>
+        </div>
+
+        <div class="card bg-secondary" style="width: 20rem ;height: 15rem">
+            <div class="card-body">
+
+                <h2 class="card-title">Profit</h2>
+                <br />
+                <h4 class="card-text">Total Profit :&nbsp;{{totalProfit['totProfit']}} $</h4>
+
+                <h4 class="card-text">Current <br />Month Profit :&nbsp;{{currMonthProfit}} $</h4>
+
+
+
+            </div>
+        </div>
+
+
+        <div class="card bg-info" style="width: 20rem ;height: 15rem">
+            <div class="card-body">
+                <h2 class="card-title">Products</h2>
+
+                <h4 class="card-text">Total Categories:&nbsp;&nbsp;{{itemDetails[1]}}</h4>
+                <h4 class="card-text">Available Categories:&nbsp;&nbsp;{{itemDetails[0]}}</h4>
+
+                <div class="card-footer">
+                    <a href="{{url_for('itemDetail_page')}}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock %}

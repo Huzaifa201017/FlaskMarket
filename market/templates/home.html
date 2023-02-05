@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+<!-- -------- -->
+
+<!-- -------- -->
+{% block content %}
+<!-- -------- -->
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-dark" style="color: white">
+  <div class="col-md-4 p-lg-5 mx-auto my-5">
+    <h1 class="display-4 font-weight-normal">Wholesale ecommerce solution</h1>
+    <p class="lead font-weight-normal">
+      All your grocery needs in one place!
+    </p>
+
+    {% if 'loggedin' in session %}
+    {% if session['id'] == 1 %}
+    <a class="btn btn-primary" href="{{url_for('dashboard_page')}}">Let's Start</a>
+    {% elif session['attr'] == 1 %}
+    <a class="btn btn-primary" href="{{ url_for('market_page') }}">Let's Start</a>
+    {% elif session['attr'] == 0 %}
+    <a class="btn btn-primary" href="{{url_for('sell_page')}}">Let's Start</a>
+    {% endif %}
+    {% else %}
+    <a class="btn btn-primary" href="{{url_for('login_page')}}">Let's Start</a>
+    {% endif %}
+
+  </div>
+  <div class="product-device box-shadow d-none d-md-block"></div>
+  <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
+</div>
+<!-- -------- -->
+{% endblock %}
+<!-- -------- -->

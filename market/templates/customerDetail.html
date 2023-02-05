@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<br />
+<h2 style="text-align:center">Customers</h2>
+
+
+<hr style="border: 0; border-top: 2px solid grey;" />
+<table class="table table-info container">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+
+            <th scope="col">Name</th>
+            <th scope="col">Date of Birth</th>
+            <th scope="col">Last Order Made</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for cus in customerAllDetails %}
+        <tr>
+
+            <th>{{cus.id}}</th>
+            <th>{{cus.name}}</th>
+            <th>{{cus.dob}}</th>
+            <th>{{cus['latestOrderMade']}}</th>
+
+            {% endfor %}
+        </tr>
+
+
+
+    </tbody>
+</table>
+{% endblock %}

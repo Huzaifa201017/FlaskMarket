@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+<!--------------------->
+{%block content%}
+
+<div class="container">
+  <form method="post" class="form-register" , style="color: white">
+    {{form.hidden_tag()}}
+    <center><img class="mb-4" src="{{url_for('static', filename='logo.jpg')}}" width='70px'
+        style='border-radius: 40px; margin-top: 0.5cm;' alt="" /></center>
+    <center>
+      <h1 class="h3 mb-3 font-weight-normal">Please Create your Account</h1>
+    </center>
+    <br />
+    {{form.username.label()}}
+    <!------------------>
+    {{form.username(class="form-control", placeholder="User Name")}}
+    <!--===========================-->
+    {{ form.email_address.label() }}
+    <!------------------>
+    {{ form.email_address(class="form-control", placeholder="Email Address")}}
+    <!--===========================-->
+
+    {{ form.password1.label() }}
+    <!------------------>
+    {{ form.password1(class="form-control", placeholder="Password") }}
+    <!--===========================-->
+    {{ form.password2.label() }}
+    <!------------------>
+    {{ form.password2(class="form-control", placeholder="Confirm Password") }}
+    <!------------------>
+    {{ form.dob.label() }}
+    <!------------------>
+    {{ form.dob(class="form-control", placeholder="Date of Birth") }}
+    <!------------------>
+    <p>
+      <!----------------->
+      {{ form.options.label }}
+      <!----------------->
+      {{ form.options() }}
+    </p>
+    <!------------------>
+
+    <br />
+    <div class="checkbox mb-3" style="text-align:center">
+      <h6>Already have an account?</h6>
+      <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">
+        Login
+      </a>
+    </div>
+
+    {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+  </form>
+</div>
+
+
+{%endblock%}

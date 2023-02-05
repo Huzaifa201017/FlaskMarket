@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+<!--------------------->
+{%block content%}
+
+<div class="container">
+    <section>
+        <div class="container py-5">
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4" style="height: 18rem;">
+                        <div class="card-body text-center">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                                alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                            <h5 class="my-3" style="color: black;">{{profile['name']}}</h5>
+                            <p class="text-muted mb-1">Customer</p>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0" style="color: Black;">ID</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{profile['id']}}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3" style="color: Black;">
+                                    <p class="mb-0">Name</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{profile.name}}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3" style="color: Black;">
+                                    <p class="mb-0">Email</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{profile.email}}</p>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-sm-3" style="color: Black;">
+                                    <p class="mb-0">Date of Birth</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{profile.dob}}</p>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <hr style="border: 0; border-top: 2px solid grey;" />
+    <h2>Pending Orders</h2>
+    <table class="table table-hover table-info">
+        <thead>
+            <tr>
+                <th scope="col">OrderID</th>
+                <th scope="col">Price</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+
+
+
+        <tbody>
+
+
+            {% for order in Porders %}
+            <!-- ---------- -->
+            {% include 'includes/orderDetails_modal.html' %}
+
+            <tr>
+
+                <td>{{order.id}}</td>
+                <td>{{order.price}}</td>
+                <td>
+                    <button id="Details" class="btn btn-outline btn-info btn-sm" data-toggle="modal"
+                        data-target="#modal-info-{{order.id}}">
+                        Details
+                    </button>
+                </td>
+
+            </tr>
+            {% endfor %}
+
+
+
+        </tbody>
+    </table>
+</div>
+
+<div class=" container">
+    <hr style="border: 0; border-top: 2px solid grey;" />
+    <h2>Departed Orders</h2>
+
+    <table class="table table-hover table-info">
+        <thead>
+            <tr>
+                <th scope="col">OrderID</th>
+                <th scope="col">Price</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+
+
+
+        <tbody>
+
+            {% for order in Dorders %}
+            <!-- ---------- -->
+            {% include 'includes/orderDetails_modal.html' %}
+
+            <tr>
+
+                <td>{{order.id}}</td>
+                <td>{{order.price}}</td>
+                <td>
+                    <button id="Details" class="btn btn-outline btn-info btn-sm" data-toggle="modal"
+                        data-target="#modal-info-{{order.id}}">
+                        Details
+                    </button>
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <hr style="border: 0; border-top: 2px solid grey;" />
+
+    <h2>Non Assigned Orders</h2>
+
+    <table class="table table-hover table-info">
+        <thead>
+            <tr>
+                <th scope="col">OrderID</th>
+                <th scope="col">Price</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+
+
+
+        <tbody>
+
+            {% for order in Unorders %}
+            <!-- ---------- -->
+            {% include 'includes/orderDetails_modal.html' %}
+
+            <tr>
+
+                <td>{{order.id}}</td>
+                <td>{{order.price}}</td>
+                <td>
+                    <button id="Details" class="btn btn-outline btn-info btn-sm" data-toggle="modal"
+                        data-target="#modal-info-{{order.id}}">
+                        Details
+                    </button>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
