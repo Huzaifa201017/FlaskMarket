@@ -23,11 +23,11 @@
         {% for cus in sellerAllDetails %}
         <tr>
 
-            <th>{{cus.id}}</th>
-            <th>{{cus.name}}</th>
-            <th>{{cus.email}}</th>
-            <th>{{cus.dob}}</th>
-            <th>{{cus['latestSellDate']}}</th>
+            <th>{{cus[0]}}</th>
+            <th>{{cus[1]}}</th>
+            <th>{{cus[2]}}</th>
+            <th>{{cus[3]}}</th>
+            <th>{{cus[4]}}</th>
 
             {% endfor %}
         </tr>

@@ -4,7 +4,7 @@
     }
 </style>
 
-<div class="modal fade" id="modal-info-{{order.id}}" tabindex="-1" role="dialog">
+<div class="modal fade" id="modal-info-{{order[0]}}" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -36,21 +36,21 @@
                 {% for detail in AllOrders %}
                 <!-- ---------- -->
 
-                {% if detail['orderID'] == order.id %}
+                {% if detail[1] == order.id %}
 
                 <div class="container">
                     <div class="row">
                         <div class="col text-center">
-                            <p>{{detail.bcode}}</p>
+                            <p>{{detail[0]}}</p>
                         </div>
                         <div class="col text-center">
-                            <p>{{detail.name}}</p>
+                            <p>{{detail[2]}}</p>
                         </div>
                         <div class="col text-center">
-                            <p>{{detail.price}}</p>
+                            <p>{{detail[3]}}</p>
                         </div>
                         <div class="col text-center">
-                            <p>{{detail.catname}}</p>
+                            <p>{{detail[4]}}</p>
                         </div>
                     </div>
 
