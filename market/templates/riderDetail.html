@@ -21,11 +21,11 @@
         {% for rider in riders %}
         <tr>
 
-            <th>{{rider.id}}</th>
-            <th>{{rider.name}}</th>
+            <th>{{rider[0]}}</th>
+            <th>{{rider[1]}}</th>
             <form method="POST" action="{{ url_for('riderDetail_page')}}">
 
-                <input id="BtnFreed" name="BtnFreed" type="hidden" value="{{ rider.id }}">
+                <input id="BtnFreed" name="BtnFreed" type="hidden" value="{{ rider[0] }}">
 
                 <th><button id="FreeUpBtn" class="btn btn-outline-success btn-sm" type="submit">Freeup</button>
                 </th>
