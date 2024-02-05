@@ -1,6 +1,6 @@
 # Flask Market
 
-An ecommerce application, where you can buy and sell things.
+An ecommerce application, which connects Sellers with Buyers.
 
 ## Actors:
 
@@ -11,14 +11,6 @@ An ecommerce application, where you can buy and sell things.
 ## Technologies Used:
 
 - Flask
-- Sql Server
+- SQL Server
 - Google Cloud
-- HTML & Boostrap
-
-## Functionalities:
-
-- I'll mention latter...
-
-## Link:
-
-- https://my-flask-project-dabjqdghla-uc.a.run.app
+- HTML & Bootstrap
