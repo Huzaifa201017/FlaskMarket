@@ -231,10 +231,11 @@ def login_page():
             conn = connection()
             cursor = conn.cursor(as_dict=True)
 
-            cursor.execute('SELECT * FROM [User] WHERE email = %s AND password = %s', (form.email.data, form.password.data))
+            cursor.execute(f"SELECT * FROM [User] WHERE email = '{form.email.data}' AND password = '{form.password.data}'")
             account = cursor.fetchone()
             cursor.close()
             conn.close()
+
             if account:
                 session['loggedin'] = True
                 session['id'] = account['id']
@@ -243,6 +244,7 @@ def login_page():
 
                 username = account['name']
                 flash(f'Success! You are logged in as: {username}', category='success')
+                
                 if session['id'] == 1:
                     return redirect(url_for('dashboard_page'))
                 elif session['attr'] == 1:
