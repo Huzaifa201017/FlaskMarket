@@ -21,7 +21,8 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
 
                     {% for cat in categoryList%}
-                    <button class="dropdown-item" name="dd" value={{cat.categoryName}} type="submit">{{cat[1]}}</button>
+                    <button class="dropdown-item" name="dd" value={{cat.categoryName}}
+                        type="submit">{{cat.categoryName}}</button>
 
 
                     {% endfor %}
@@ -69,16 +70,16 @@
             <!-- ---------- -->
 
             <tr>
-                <td>{{item[0]}}</td>
-                <td>{{item[1]}}$</td>
-                <td>{{item[2]}}$</td>
+                <td>{{item.name}}</td>
+                <td>{{item.price}}$</td>
+                <td>{{item.gprice}}$</td>
 
-                <td>{{item[6]}}</td>
-                <td>{{item[7]}}</td>
-                <td>{{item[3]}}</td>
-                <td>{{item[5]}}</td>
-                <td>{{item[4]}}</td>
-                <td>{{item[8]}}</td>
+                <td>{{item.SellerID}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.rating}}</td>
+                <td>{{item['countofRating']}}</td>
+                <td>{{item['catName']}}</td>
 
                 {% endfor %}
             </tr>

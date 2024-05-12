@@ -21,10 +21,10 @@
         {% for cus in customerAllDetails %}
         <tr>
 
-            <th>{{cus[0]}}</th>
-            <th>{{cus[1]}}</th>
-            <th>{{cus[2]}}</th>
-            <th>{{cus[3]}}</th>
+            <th>{{cus.id}}</th>
+            <th>{{cus.name}}</th>
+            <th>{{cus.dob}}</th>
+            <th>{{cus['latestOrderMade']}}</th>
 
             {% endfor %}
         </tr>

@@ -12,6 +12,7 @@
 
     body {
 
+
       overflow-x: hidden;
     }
   </style>
@@ -37,7 +38,8 @@
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
 
             {% for cat in categoryList%}
-            <button class="dropdown-item" name="dd" value={{cat[1]}} type="submit">{{cat[1]}}</button>
+            <button class="dropdown-item" name="dd" value={{cat.categoryName}}
+              type="submit">{{cat.categoryName}}</button>
 
 
             {% endfor %}
@@ -84,24 +86,24 @@
 
         <tr>
 
-          <td>{{item[0]}}</td>
-          <td>{{item[3]}}</td>
-          <td>{{item[2]}}$</td>
-          <td>{{item[5]}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.barcode}}</td>
+          <td>{{item.price}}$</td>
+          <td>{{item.sellername}}</td>
           <td>
 
 
 
 
             <form method="POST" display: inline-block>
-              <input id="purchased_item" name="purchased_item" type="hidden" value="{{ item[3]}}">
+              <input id="purchased_item" name="purchased_item" type="hidden" value="{{ item.barcode }}">
               {{ form.submit(class="btn btn-outline btn-success" ) }}
             </form>
 
 
 
             <button id="moreinfo" class="btn btn-outline btn-info" data-toggle="modal"
-              data-target="#modal-info-{{item[3]}}">
+              data-target="#modal-info-{{item.barcode}}">
               More Info
             </button>
 
@@ -139,14 +141,14 @@
 
         <tr>
 
-          <td>{{item[1]}}</td>
+          <td>{{item.productName}}</td>
 
-          <td>{{item[2]}}$</td>
+          <td>{{item.price}}$</td>
 
           <td>
 
             <form method="POST" action="{{ url_for('market_page')}}" display: inline-block>
-              <input id="toRemove_item" name="toRemove_item" type="hidden" value="{{ item[0]}}">
+              <input id="toRemove_item" name="toRemove_item" type="hidden" value="{{ item.barcodeNum }}">
               <button id="PutBack" type="submit" class="btn btn-outline btn-info">
                 Put Back
               </button>
