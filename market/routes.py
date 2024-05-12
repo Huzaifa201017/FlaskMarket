@@ -97,8 +97,7 @@ def market_page():
                         totalOrderPrice = 0
 
                 elif searchContent:
-                    cursor.execute(
-                        'SELECT * FROM itemDetails where name  LIKE %s', ("%" + searchContent + "%"))
+                    cursor.execute('SELECT * FROM itemDetails where name  LIKE %s', ("%" + searchContent + "%"))
                     for row in cursor:
                         row['rating'] = "{:.2f}".format(row['rating'])
                         row['rating'] = float(row['rating'])
@@ -128,13 +127,11 @@ def market_page():
                     for row in selectedItems:
                         if 'barcodeNum' in row and purchased_item == row['barcodeNum']:
                             isPresent = True
-                            flash("Sorry You Already have selected this item",
-                                  category="info")
+                            flash("Sorry You Already have selected this item",category="info")
                             break
 
                     if not isPresent:
-                        cursor.execute(
-                            "select barcodeNum, productName , price , grossPrice from item where barcodeNum = %s ", purchased_item)
+                        cursor.execute("select barcodeNum, productName , price , grossPrice from item where barcodeNum = %s ", purchased_item)
                         num = cursor.fetchone()
                         selectedItems.append(num)
                         totalOrderPrice += int(num['price'])
@@ -142,8 +139,7 @@ def market_page():
 
                 elif catname and catname != "ALL":
 
-                    cursor.execute(
-                        'SELECT * FROM itemDetails where catName = %s ', str(catname))
+                    cursor.execute('SELECT * FROM itemDetails where catName = %s ', str(catname))
                     for row in cursor:
                         row['rating'] = "{:.2f}".format(row['rating'])
                         row['rating'] = float(row['rating'])
@@ -194,8 +190,7 @@ def register_page():
             )
             conn.commit()
 
-            cursor.execute(
-                'SELECT * FROM [User] WHERE email = %s AND password = %s', (email, password))
+            cursor.execute('SELECT * FROM [User] WHERE email = %s AND password = %s', (email, password))
             account = cursor.fetchone()
 
             if value == 0:
@@ -212,8 +207,7 @@ def register_page():
             session['attr'] = account['CustomerAttribute']
             session['name'] = account['name']
 
-            flash(
-                f"Account created successfully! You are now logged in as {name}", category='success')
+            flash(f"Account created successfully! You are now logged in as {name}", category='success')
             if session['id'] == 1:
                 return redirect(url_for('dashboard_page'))
             elif session['attr'] == 1:
@@ -222,8 +216,7 @@ def register_page():
 
         elif form.errors != {}:  # If there are not errors from the validations
             for err_msg in form.errors.values():
-                flash(
-                    f'There was an error with creating a user: {err_msg}', category='danger')
+                flash(f'There was an error with creating a user: {err_msg}', category='danger')
 
         return render_template("register.html", form=form)
 
@@ -238,8 +231,7 @@ def login_page():
             conn = connection()
             cursor = conn.cursor(as_dict=True)
 
-            cursor.execute(
-                'SELECT * FROM [User] WHERE email = %s AND password = %s', (form.email.data, form.password.data))
+            cursor.execute('SELECT * FROM [User] WHERE email = %s AND password = %s', (form.email.data, form.password.data))
             account = cursor.fetchone()
             cursor.close()
             conn.close()
@@ -250,8 +242,7 @@ def login_page():
                 session['attr'] = account['CustomerAttribute']
 
                 username = account['name']
-                flash(
-                    f'Success! You are logged in as: {username}', category='success')
+                flash(f'Success! You are logged in as: {username}', category='success')
                 if session['id'] == 1:
                     return redirect(url_for('dashboard_page'))
                 elif session['attr'] == 1:
@@ -259,8 +250,7 @@ def login_page():
 
                 return redirect(url_for('sell_page'))
             else:
-                flash('Username and password are not match! Please try again',
-                      category='danger')
+                flash('Username and password are not match! Please try again',category='danger')
 
         return render_template('login.html', form=form)
     else:
@@ -332,8 +322,7 @@ def dashboard_page():
             sellerDetail = cursor.fetchone()
 
             # ----------------------------------------------------------------
-            cursor.execute(
-                "select count(*) as totalCus from [User] where CustomerAttribute = 1")
+            cursor.execute("select count(*) as totalCus from [User] where CustomerAttribute = 1")
             customerDetail = cursor.fetchone()
 
             # ----------------------------------------------------------------
@@ -347,8 +336,7 @@ def dashboard_page():
             itemDetails.append(num['totalCat'])
 
             # --------------------------------------------------------------
-            cursor.execute(
-                "select sum(o.totalPrice-o.totalgPrice) as totProfit from [order] o")
+            cursor.execute("select sum(o.totalPrice-o.totalgPrice) as totProfit from [order] o")
             totalProfit = cursor.fetchone()
 
             # --------------------------------------------------------------
@@ -424,16 +412,12 @@ def riderDetail_page():
             cursor = conn.cursor(as_dict=True)
             if request.method == "POST":
                 id = request.form.get("BtnFreed")
-                cursor.execute(
-                    "update Rider set countOfOrders = 0 where id = %s ", id)
-                cursor.execute(
-                    "update [Order] set orderstatus = 'Delivered' where riderID = %d", id)
-                cursor.execute(
-                    "update [Order] set riderID = NULL where orderstatus = 'Delivered'")
+                cursor.execute("update Rider set countOfOrders = 0 where id = %s ", id)
+                cursor.execute("update [Order] set orderstatus = 'Delivered' where riderID = %d", id)
+                cursor.execute("update [Order] set riderID = NULL where orderstatus = 'Delivered'")
                 conn.commit()
 
-                cursor.execute(
-                    "select id from [Order] where orderStatus = 'Unassigned'")
+                cursor.execute("select id from [Order] where orderStatus = 'Unassigned'")
                 orderIds = []
                 for row in cursor:
                     orderIds.append(row['id'])
@@ -443,8 +427,7 @@ def riderDetail_page():
                 riderOrders = 0
 
                 while riderOrders < 5 and orderNums > 0:
-                    cursor.callproc('assignRider_UA_order',
-                                    (orderIds[riderOrders], id))
+                    cursor.callproc('assignRider_UA_order',(orderIds[riderOrders], id))
                     conn.commit()
                     orderNums -= 1
                     riderOrders += 1
@@ -482,8 +465,7 @@ def sell_page():
 
                 conn = connection()
                 cursor = conn.cursor(as_dict=True)
-                cursor.execute(
-                    "select id from Category where categoryName = %s", category)
+                cursor.execute("select id from Category where categoryName = %s", category)
                 num = cursor.fetchone()
                 cid = num['id']
 
@@ -496,19 +478,15 @@ def sell_page():
                         break
 
                 if isBalreadyPreset:
-                    cursor.execute(
-                        "Select * from item where barcodeNum = %s and sellerID = %d", (barcode, session['id']))
+                    cursor.execute("Select * from item where barcodeNum = %s and sellerID = %d", (barcode, session['id']))
                     checkRow = cursor.fetchone()
                     if not checkRow:
-                        flash("The product of different seller is already present",
-                              category='danger')
+                        flash("The product of different seller is already present",category='danger')
                     else:
-                        cursor.execute(
-                            "Select * from item where barcodeNum = %s and productName = %s and categoryID = %d", (barcode, name, cid))
+                        cursor.execute("Select * from item where barcodeNum = %s and productName = %s and categoryID = %d", (barcode, name, cid))
                         checkRow1 = cursor.fetchone()
                         if not checkRow1:
-                            flash(
-                                "You cannot add the item as product credentials are not matching", category='danger')
+                            flash("You cannot add the item as product credentials are not matching", category='danger')
 
                 cursor.executemany(
                     "INSERT INTO item(productName ,productDescription, price , grossPrice , barcodeNum ,stockQuantity,SellerID,categoryID,rating,ratingCount) VALUES ( %s, %s , %d ,%d , %s , %d,%d ,%d,%d,%d)",
@@ -549,8 +527,7 @@ def itemDetail_page():
                 searchContent = request.form.get('searchContent')
 
                 if searchContent:
-                    cursor.execute(
-                        'SELECT * FROM itemDetails2 where name  LIKE %s', ("%" + searchContent + "%"))
+                    cursor.execute('SELECT * FROM itemDetails2 where name  LIKE %s', ("%" + searchContent + "%"))
                     for row in cursor:
                         row['rating'] = "{:.2f}".format(row['rating'])
                         row['rating'] = float(row['rating'])
@@ -558,8 +535,7 @@ def itemDetail_page():
 
                 elif catname and catname != "ALL":
 
-                    cursor.execute(
-                        'SELECT * FROM itemDetails2 where catName = %s', str(catname))
+                    cursor.execute('SELECT * FROM itemDetails2 where catName = %s', str(catname))
                     for row in cursor:
                         row['rating'] = "{:.2f}".format(row['rating'])
                         row['rating'] = float(row['rating'])
@@ -595,8 +571,7 @@ def profile_page(userID=""):
 
             if session['attr'] == 0:
 
-                cursor.execute(
-                    "select u.id , name , email , dob , sellingDate ,joinDate from [User] u join Seller s on u.id  = s.id where u.id = %d", uID)
+                cursor.execute("select u.id , name , email , dob , sellingDate ,joinDate from [User] u join Seller s on u.id  = s.id where u.id = %d", uID)
                 profile = cursor.fetchone()
 
                 profile['name'] = profile['name'].upper()
@@ -612,8 +587,7 @@ def profile_page(userID=""):
                 AllOrders = []
 
                 conn = connection()
-                cursor.execute(
-                    "select id , name , email , dob  from [User] u where u.id = %d", uID)
+                cursor.execute("select id , name , email , dob  from [User] u where u.id = %d", uID)
                 profile = cursor.fetchone()
                 profile['name'] = profile['name'].upper()
 
